@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>安昱个人分享页</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+        }
+        body {
+            background: linear-gradient(180deg, #6c63ff 0%, #4a42d6 100%);
+            min-height: 100vh;
+            padding: 16px;
+        }
+        .container {
+            max-width: 420px;
+            margin: 0 auto;
+            background: #f8f9fc;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        /* 顶部渐变头 */
+        .header {
+            background: linear-gradient(135deg, #6c63ff 0%, #9d8eff 100%);
+            color: white;
+            padding: 40px 24px;
+            text-align: center;
+        }
+        .header .logo {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+        .header .desc {
+            font-size: 18px;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+        .header .qq {
+            background: #ff6b9d;
+            color: white;
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-size: 18px;
+            display: inline-block;
+        }
+        /* 通用卡片样式 */
+        .card {
+            background: white;
+            margin: 16px;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+        }
+        .card .title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #d4caff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .card .title::before {
+            content: "";
+            width: 24px;
+            height: 24px;
+            background: #6c63ff;
+            border-radius: 4px;
+        }
+        /* 资源下载区 */
+        .download-area .file-name {
+            font-size: 18px;
+            font-weight: 500;
+            color: #222;
+            margin-bottom: 16px;
+        }
+        .download-btn {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 14px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            font-size: 18px;
+            text-align: center;
+            font-weight: 500;
+        }
+        .download-btn.kuake {
+            background: #ff6a3c;
+        }
+        .download-btn.xunlei {
+            background: #00c6ff;
+        }
+        .download-btn.tutorial {
+            background: #00c853;
+        }
+        /* 特性列表 */
+        .feature-list {
+            list-style: none;
+        }
+        .feature-list li {
+            font-size: 18px;
+            color: #333;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+        .feature-list li::before {
+            content: "✅";
+            font-size: 20px;
+        }
+        /* 广告位 */
+        .ad-box {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 16px;
+        }
+        .ad-box img {
+            width: 100%;
+            display: block;
+        }
+        .ad-text {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 16px;
+        }
+        .ad-text h3 {
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+        .ad-text p {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        .ad-btn {
+            display: block;
+            background: #ff6a3c;
+            color: white;
+            text-decoration: none;
+            padding: 14px;
+            border-radius: 30px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 500;
+        }
+        /* 社群区 */
+        .social-desc {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 16px;
+        }
+        .social-btn {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 14px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            font-size: 18px;
+            text-align: center;
+            font-weight: 500;
+        }
+        .social-btn.qq {
+            background: linear-gradient(90deg, #00c6ff 0%, #ff6b9d 100%);
+        }
+        .social-btn.tg {
+            background: #0088cc;
+        }
+        /* 底部版权 */
+        .footer {
+            background: #2d2d2d;
+            color: #aaa;
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 顶部 -->
+        <div class="header">
+            <div class="logo">AY</div>
+            <h1>安昱个人分享页</h1>
+            <p class="desc">推一些游戏卡 😊 有需要的可以找我</p>
+            <div class="qq">QQ: 无</div>
+        </div>
+
+        <!-- 资源下载 -->
+        <div class="card">
+            <div class="title">资源下载</div>
+            <div class="download-area">
+                <div class="file-name">月虹一键隐藏v5.3.4.zip</div>
+                <a href="https://www.123865.com/s/Eq7vjv-FAn4" class="download-btn kuake">123云盘下载</a>
+                <a href="https://pan.xunlei.com/s/VOomgPkWfyDFvhk-wD62C6_IA1?pwd=6auh#" class="download-btn xunlei">迅雷网盘下载</a>
+                <a href="#" class="download-btn tutorial">模块教程</a>
+            </div>
+        </div>
+
+        <!-- 主要特性 -->
+        <div class="card">
+            <div class="title">主要特性</div>
+            <ul class="feature-list">
+                <li>支持多种root方案</li>
+                <li>Magisk,APatch,SukiSU Ultra</li>
+                <li>更加便捷的隐藏环境</li>
+                <li>完全免费，配套教程</li>
+                <li>内置最新版模块链接</li>
+            </ul>
+        </div>
+
+        <!-- 广告位 -->
+        <div class="card">
+            <div class="title">广告位</div>
+            <div class="ad-box">
+                <img src="https://picsum.photos/400/200" alt="流量卡广告">
+                <div class="ad-text">
+                    <h3>特惠流量卡推荐</h3>
+                    <p>超值套餐，全国通用，高速<br>流量，立即办理享优惠！</p>
+                </div>
+            </div>
+            <a href="#" class="ad-btn">查看详情 →</a>
+        </div>
+
+        <!-- 加入社群 -->
+        <div class="card">
+            <div class="title">加入社群</div>
+            <p class="social-desc">加入我们共同讨论吧</p>
+            <a href="#" class="social-btn qq">加入QQ频道</a>
+            <a href="#" class="social-btn tg">加入Telegram</a>
+        </div>
+
+        <!-- 底部 -->
+        <div class="footer">
+            © 2026 安昱个人分享页
+        </div>
+    </div>
+</body>
+</html>
