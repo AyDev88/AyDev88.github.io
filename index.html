@@ -160,8 +160,9 @@
             font-size: 16px;
             line-height: 1.6;
         }
+        /* 查看详情按钮 - 强制显示，浏览器必现 */
         .ad-btn {
-            display: block;
+            display: block !important;
             background: #ff6a3c;
             color: white;
             text-decoration: none;
@@ -171,6 +172,13 @@
             font-size: 18px;
             font-weight: 500;
             cursor: pointer;
+            z-index: 999 !important;
+            position: relative;
+        }
+        .ad-btn:hover {
+            background: #ff5722;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(255, 106, 60, 0.4);
         }
         /* 社群区 */
         .social-desc {
@@ -229,39 +237,35 @@
             overflow-y: auto;
             position: relative;
         }
-        /* 弹窗头部：极简布局，返回键小巧+标题居中 */
+        /* 弹窗头部：小巧返回键 + 居中标题 */
         .jmb-header {
             display: flex;
             align-items: center;
             justify-content: center;
             margin-bottom: 24px;
             position: relative;
-            height: 28px; /* 高度适配小巧返回键 */
+            height: 28px;
         }
-        /* 左侧返回键【核心优化：小巧原生样式】 */
         .jmb-back-btn {
             position: absolute;
             left: 0;
             top: 50%;
             transform: translateY(-50%);
             color: #eef5ff;
-            font-size: 22px; /* 原生箭头大小，无冗余 */
+            font-size: 22px;
             cursor: pointer;
-            width: 28px; /* 固定小巧尺寸 */
+            width: 28px;
             height: 28px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 4px; /* 小圆角，贴合原生 */
+            border-radius: 4px;
             transition: background 0.2s ease;
-            touch-action: manipulation; /* 防移动端误触 */
         }
-        /* 悬浮轻量高亮，不夸张 */
         .jmb-back-btn:hover {
             background: rgba(88, 208, 255, 0.2);
             color: #58d0ff;
         }
-        /* 弹窗标题：和返回键视觉平衡，无冗余 */
         .jmb-title {
             font-size: 24px;
             font-weight: 700;
@@ -335,7 +339,6 @@
             color:#58d0ff;
             margin-bottom:12px;
         }
-        /* 价目表项 */
         .item{
             display:flex;
             justify-content:space-between;
@@ -381,7 +384,7 @@
                 <li>内置最新版模块链接</li>
             </ul>
         </div>
-        <!-- 广告位 -->
+        <!-- 广告位（查看详情按钮强制显示） -->
         <div class="card">
             <div class="title">广告位</div>
             <div class="ad-box">
@@ -406,22 +409,19 @@
         </div>
     </div>
 
-    <!-- 价目表弹窗：无右侧X，仅小巧返回键 -->
+    <!-- 价目表弹窗 -->
     <div class="jmb-modal-mask" id="jmbModalMask">
         <div class="jmb-modal-box">
-            <!-- 弹窗头部：小巧← + 居中标题 -->
             <div class="jmb-header">
                 <div class="jmb-back-btn" id="closeJmbModal">←</div>
                 <div class="jmb-title">游戏服务价目表</div>
             </div>
-            <!-- 滚动公告 -->
             <div class="notice-bar">
                 <div class="notice-bell">🔔</div>
                 <div class="notice-scroll-wrap">
                     <div class="notice-text">公告：正式营业 赛季低价 最性价比！</div>
                 </div>
             </div>
-            <!-- 和平精英价目表 -->
             <div class="jmb-card">
                 <div class="card-title">和平精英 · Game For Peace</div>
                 <div class="item"><span class="label">6.6r保底250W上不封顶</span><span class="price">免费</span></div>
@@ -429,7 +429,6 @@
                 <div class="item"><span class="label">12.5r保底888W上不封顶</span><span class="price">免费</span></div>
                 <div class="item"><span class="label">25r保底1000W当局收获</span><span class="price">免费</span></div>
             </div>
-            <!-- 三角洲行动价目表 -->
             <div class="jmb-card">
                 <div class="card-title">三角洲行动 · Delta operation</div>
                 <div class="item"><span class="label">全段位代肝</span><span class="price">免费</span></div>
@@ -440,28 +439,28 @@
         </div>
     </div>
 
-    <!-- 弹窗控制脚本 -->
+    <!-- 弹窗控制脚本（DOM加载后绑定，避免浏览器找不到元素） -->
     <script>
-        const openJmbModal = document.getElementById('openJmbModal');
-        const jmbModalMask = document.getElementById('jmbModalMask');
-        const closeJmbModal = document.getElementById('closeJmbModal');
+        document.addEventListener('DOMContentLoaded', function() {
+            const openJmbModal = document.getElementById('openJmbModal');
+            const jmbModalMask = document.getElementById('jmbModalMask');
+            const closeJmbModal = document.getElementById('closeJmbModal');
 
-        // 打开弹窗
-        openJmbModal.addEventListener('click', () => {
-            jmbModalMask.style.display = 'flex';
-            document.body.style.overflow = 'hidden';
+            // 打开弹窗
+            openJmbModal.addEventListener('click', () => {
+                jmbModalMask.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            });
+
+            // 关闭弹窗
+            function closeModal() {
+                jmbModalMask.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+            closeJmbModal.addEventListener('click', closeModal);
+            jmbModalMask.addEventListener('click', (e) => e.target === jmbModalMask && closeModal());
+            document.addEventListener('keydown', (e) => e.key === 'Escape' && closeModal());
         });
-
-        // 关闭弹窗通用方法
-        function closeModal() {
-            jmbModalMask.style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
-
-        // 关闭方式：返回键+遮罩+ESC
-        closeJmbModal.addEventListener('click', closeModal);
-        jmbModalMask.addEventListener('click', (e) => e.target === jmbModalMask && closeModal());
-        document.addEventListener('keydown', (e) => e.key === 'Escape' && closeModal());
     </script>
 </body>
 </html>
