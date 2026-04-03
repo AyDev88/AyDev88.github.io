@@ -1,466 +1,225 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>安昱个人分享页</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
-        }
-        body {
-            background: linear-gradient(180deg, #6c63ff 0%, #4a42d6 100%);
-            min-height: 100vh;
-            padding: 16px;
-            position: relative;
-        }
-        .container {
-            max-width: 420px;
-            margin: 0 auto;
-            background: #f8f9fc;
-            border-radius: 20px;
-            overflow: hidden;
-        }
-        /* 顶部渐变头 */
-        .header {
-            background: linear-gradient(135deg, #6c63ff 0%, #9d8eff 100%);
-            color: white;
-            padding: 40px 24px;
-            text-align: center;
-        }
-        .header .logo {
-            font-size: 48px;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-        .header h1 {
-            font-size: 32px;
-            margin-bottom: 12px;
-        }
-        .header .desc {
-            font-size: 18px;
-            margin-bottom: 20px;
-            opacity: 0.9;
-        }
-        .header .qq {
-            background: #ff6b9d;
-            color: white;
-            padding: 10px 24px;
-            border-radius: 30px;
-            font-size: 18px;
-            display: inline-block;
-        }
-        /* 通用卡片样式 */
-        .card {
-            background: white;
-            margin: 16px;
-            border-radius: 16px;
-            padding: 24px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
-        }
-        .card .title {
-            font-size: 24px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 20px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid #d4caff;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .card .title::before {
-            content: "";
-            width: 24px;
-            height: 24px;
-            background: #6c63ff;
-            border-radius: 4px;
-        }
-        /* 资源下载区 */
-        .download-area .file-name {
-            font-size: 18px;
-            font-weight: 500;
-            color: #222;
-            margin-bottom: 16px;
-        }
-        .download-btn {
-            display: block;
-            color: white;
-            text-decoration: none;
-            padding: 14px;
-            border-radius: 10px;
-            margin-bottom: 10px;
-            font-size: 18px;
-            text-align: center;
-            font-weight: 500;
-        }
-        .download-btn.kuake {
-            background: #ff6a3c;
-        }
-        .download-btn.xunlei {
-            background: #00c6ff;
-        }
-        .download-btn.tutorial {
-            background: #00c853;
-        }
-        /* 特性列表 */
-        .feature-list {
-            list-style: none;
-        }
-        .feature-list li {
-            font-size: 18px;
-            color: #333;
-            padding: 12px 0;
-            border-bottom: 1px solid #eee;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .feature-list li:last-child {
-            border-bottom: none;
-        }
-        .feature-list li::before {
-            content: "✅";
-            font-size: 20px;
-        }
-        /* 广告位 */
-        .ad-box {
-            position: relative;
-            border-radius: 12px;
-            overflow: hidden;
-            margin-bottom: 16px;
-        }
-        .ad-box img {
-            width: 100%;
-            display: block;
-        }
-        .ad-text {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.4);
-            color: white;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 16px;
-        }
-        .ad-text h3 {
-            font-size: 22px;
-            margin-bottom: 12px;
-        }
-        .ad-text p {
-            font-size: 16px;
-            line-height: 1.6;
-        }
-        /* 查看详情按钮 - 强制显示，浏览器必现 */
-        .ad-btn {
-            display: block !important;
-            background: #ff6a3c;
-            color: white;
-            text-decoration: none;
-            padding: 14px;
-            border-radius: 30px;
-            text-align: center;
-            font-size: 18px;
-            font-weight: 500;
-            cursor: pointer;
-            z-index: 999 !important;
-            position: relative;
-        }
-        .ad-btn:hover {
-            background: #ff5722;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(255, 106, 60, 0.4);
-        }
-        /* 社群区 */
-        .social-desc {
-            font-size: 16px;
-            color: #666;
-            margin-bottom: 16px;
-        }
-        .social-btn {
-            display: block;
-            color: white;
-            text-decoration: none;
-            padding: 14px;
-            border-radius: 10px;
-            margin-bottom: 10px;
-            font-size: 18px;
-            text-align: center;
-            font-weight: 500;
-        }
-        .social-btn.qq {
-            background: linear-gradient(90deg, #00c6ff 0%, #ff6b9d 100%);
-        }
-        .social-btn.tg {
-            background: #0088cc;
-        }
-        /* 底部版权 */
-        .footer {
-            background: #2d2d2d;
-            color: #aaa;
-            text-align: center;
-            padding: 20px;
-            font-size: 14px;
-            margin-top: 16px;
-        }
-        /* 弹窗遮罩层 */
-        .jmb-modal-mask {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(0,0,0,0.7);
-            z-index: 999;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-        /* 弹窗容器 */
-        .jmb-modal-box {
-            width: 100%;
-            max-width: 420px;
-            background: #0b1222;
-            border-radius: 16px;
-            padding: 20px;
-            max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
-        }
-        /* 弹窗头部：小巧返回键 + 居中标题 */
-        .jmb-header {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 24px;
-            position: relative;
-            height: 28px;
-        }
-        .jmb-back-btn {
-            position: absolute;
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #eef5ff;
-            font-size: 22px;
-            cursor: pointer;
-            width: 28px;
-            height: 28px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 4px;
-            transition: background 0.2s ease;
-        }
-        .jmb-back-btn:hover {
-            background: rgba(88, 208, 255, 0.2);
-            color: #58d0ff;
-        }
-        .jmb-title {
-            font-size: 24px;
-            font-weight: 700;
-            background: linear-gradient(90deg, #58d0ff, #00ff88, #ff66cc, #ffcc00, #58d0ff);
-            background-size: 400% 100%;
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            animation: gradientFlow 8s linear infinite, colorRandom 3s infinite alternate;
-            line-height: 28px;
-        }
-        @keyframes gradientFlow {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 400% 50%; }
-        }
-        @keyframes colorRandom {
-            0% { filter: hue-rotate(0deg); }
-            100% { filter: hue-rotate(360deg); }
-        }
-        /* 公告滚动栏 */
-        .notice-bar{
-            width:100%;
-            height:44px;
-            background:#101a32;
-            border:1px solid #1b2a4f;
-            border-radius:12px;
-            margin-bottom:16px;
-            display:flex;
-            align-items:center;
-            padding:0 12px;
-            position:relative;
-            overflow:hidden;
-        }
-        .notice-bell{
-            color:#b388ff;
-            font-size:20px;
-            margin-right:8px;
-            z-index:2;
-            position:relative;
-        }
-        .notice-scroll-wrap{
-            flex:1;
-            overflow:hidden;
-            height:100%;
-            position:relative;
-        }
-        .notice-text{
-            position:absolute;
-            white-space:nowrap;
-            font-size:16px;
-            color:#58d0ff;
-            font-weight:500;
-            line-height:44px;
-            animation: scrollLeft 15s linear infinite;
-        }
-        @keyframes scrollLeft {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
-        }
-        /* 价目表卡片 */
-        .jmb-card{
-            background:#101a32;
-            border:1px solid #1b2a4f;
-            border-radius:16px;
-            padding:20px;
-            margin-bottom:16px;
-        }
-        .jmb-card .card-title{
-            font-size:20px;
-            font-weight:600;
-            color:#58d0ff;
-            margin-bottom:12px;
-        }
-        .item{
-            display:flex;
-            justify-content:space-between;
-            padding:12px 0;
-            border-bottom:1px solid #1b2a4f;
-            font-size:17px;
-            color: #eef5ff;
-        }
-        .item:last-child {
-            border-bottom: none;
-        }
-        .item .label{font-weight:500}
-        .item .price{color:#58d0ff;font-weight:600}
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>安昱小店</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto}
+body{background:#f5f7fa;color:#1f2937}
+/* 顶部 */
+.header{
+background: linear-gradient(135deg, #6366f1 0%,#8b5cf6 100%);
+color:white;text-align:center;padding:36px 20px 44px;
+border-radius:0 0 36px 36px;
+box-shadow:0 8px 24px rgba(99,102,241,0.15)
+}
+.logo{
+width:84px;height:84px;background:#fff;color:#6366f1;
+font-size:34px;font-weight:bold;border-radius:22px;
+margin:0 auto 16px;display:grid;place-items:center
+}
+.title{font-size:26px;font-weight:700;margin-bottom:8px}
+.desc{font-size:15px;opacity:.95;margin-bottom:22px}
+.contact-btn{
+background:#fff;color:#6366f1;font-weight:bold;
+padding:13px 30px;border-radius:999px;
+display:inline-block;font-size:15px;cursor:pointer;
+box-shadow:0 4px 14px rgba(0,0,0,0.15)
+}
+/* 卡片通用样式 - 核心自适应壁纸修改 */
+.card{
+border-radius:24px;margin:16px;
+overflow:hidden;box-shadow:0 4px 14px rgba(0,0,0,0.08);
+/* 自适应背景核心：铺满、居中、不拉伸 */
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+position: relative;
+}
+/* 半透遮罩：保证文字清晰，不影响壁纸显示 */
+.card::before{
+content: '';
+position: absolute;
+top:0;left:0;right:0;bottom:0;
+background: rgba(255,255,255,0);
+z-index: 1;
+}
+/* 卡片内容层：在遮罩上方，保证可点击 */
+.card > *{
+position: relative;
+z-index: 2;
+}
+.card-header{
+padding:18px 20px;border-bottom:1px solid rgba(0,0,0,0.08);
+font-weight:bold;font-size:17px;color:#1e293b
+}
+/* 可折叠项目 */
+.item{
+display:flex;align-items:center;padding:16px 20px;
+border-bottom:1px solid rgba(0,0,0,0.06);cursor:pointer
+}
+.item:last-child{border-bottom:none}
+.item-icon{
+width:56px;height:56px;background:rgba(255,255,255,0);border-radius:16px;
+display:grid;place-items:center;font-size:28px;margin-right:16px;color:#4f46e5;
+box-shadow:0 2px 8px rgba(0,0,0,0.05)
+}
+.item-info{flex:1}
+.item-name{font-size:18px;font-weight:600;margin-bottom:4px}
+/* 副标题颜色 */
+.item-desc{font-size:14px;color:#FF69B4}
+.item-arrow{font-size:22px;color:#94a3b8;transition:.3s}
+/* 折叠内容 */
+.fold-content{
+max-height:0;overflow:hidden;transition:.4s;
+background:rgba(255,255,255,0);padding:0 20px
+}
+.fold-content.show{
+max-height:500px;padding:16px 20px;border-bottom:1px solid rgba(0,0,0,0.06)
+}
+.price-row{
+display:flex;justify-content:space-between;padding:10px 0;
+font-size:15px;border-bottom:1px dashed rgba(0,0,0,0.1)
+}
+.price-row:last-child{border-bottom:none}
+.price-name{font-weight:500}
+.price-tag{color:#ef4444;font-weight:bold}
+/* 底部 */
+.footer{text-align:center;padding:30px 20px;font-size:13px;color:#94a3b8}
+</style>
 </head>
 <body>
-    <div class="container">
-        <!-- 顶部 -->
-        <div class="header">
-            <div class="logo">AY</div>
-            <h1>安昱个人分享页</h1>
-            <p class="desc">推一些游戏卡 😊 有需要的可以找我</p>
-            <div class="qq">QQ: 无</div>
-        </div>
-        <!-- 资源下载 -->
-        <div class="card">
-            <div class="title">资源下载</div>
-            <div class="download-area">
-                <div class="file-name">安昱一键隐藏v5.2.0.zip</div>
-                <a href="https://www.123865.com/s/Eq7vjv-FAn4" class="download-btn kuake">123云盘下载</a>
-                <a href="https://pan.xunlei.com/s/VOomgPkWfyDFvhk-wD62C6_IA1?pwd=6auh#" class="download-btn xunlei">迅雷网盘下载</a>
-                <a href="#" class="download-btn tutorial">模块教程</a>
-            </div>
-        </div>
-        <!-- 主要特性 -->
-        <div class="card">
-            <div class="title">主要特性</div>
-            <ul class="feature-list">
-                <li>支持多种root方案</li>
-                <li>Magisk,APatch,SukiSU Ultra</li>
-                <li>更加便捷的隐藏环境</li>
-                <li>完全免费，配套教程</li>
-                <li>内置最新版模块链接</li>
-            </ul>
-        </div>
-        <!-- 广告位（查看详情按钮强制显示） -->
-        <div class="card">
-            <div class="title">广告位</div>
-            <div class="ad-box">
-                <img src="https://img.netbian.com/file/2026/0203/224803FYLBo.jpg" alt="游戏卡广告">
-                <div class="ad-text">
-                    <h3>特惠游戏卡推荐</h3>
-                    <p>超值套餐，全国通用，高速<br>服务，立即办理享优惠！</p>
-                </div>
-            </div>
-            <div class="ad-btn" id="openJmbModal">查看详情 →</div>
-        </div>
-        <!-- 加入社群 -->
-        <div class="card">
-            <div class="title">加入社群</div>
-            <p class="social-desc">加入我们共同讨论吧</p>
-            <a href="#" class="social-btn qq">加入QQ频道</a>
-            <a href="https://t.me/aybjh666" class="social-btn tg">加入Telegram</a>
-        </div>
-        <!-- 底部版权 -->
-        <div class="footer">
-            © 2026 安昱个人分享页
-        </div>
+<!-- 顶部 -->
+<div class="header">
+<!-- 🔴 仅修改这一块logo区域，其余全未动 | 替换【你的头像直链】即可 -->
+<div class="logo" style="position: relative; background: #fff !important;">
+  <img src="https://c-ssl.duitang.com/uploads/blog/202512/12/XxSAVD9aTQpmlnz.jpeg" style="width: 100%; height: 100%; border-radius: 22px; position: absolute; top: 0; left: 0; object-fit: cover;">
+  <span style="position: relative; z-index: 2;">AY</span>
+</div>
+<!-- 🔴 logo修改结束 -->
+<div class="title">价 目 表 详 情</div>
+<div class="desc">纯手工·安全高效·售后无忧</div>
+<div class="contact-btn" onclick="copyContact()">📩 联系客服下单</div>
+</div>
+<!-- 可接项目（带自适应壁纸） -->
+<!-- 只需要修改这里的url，换成你的壁纸链接即可 -->
+<div class="card" style="background-image: url('https://img.netbian.com/file/2025/0123/200332AZpiU.jpg');">
+<div class="card-header">可接项目</div>
+<!-- 和平精英 -->
+<div class="item" onclick="toggleFold('hpjy')">
+<div class="item-icon">🎯</div>
+<div class="item-info">
+<div class="item-name">和平精英·Game For Peace</div>
+<div class="item-desc">王牌 / 战神 / 陪陪 / 包段</div>
+</div>
+<div class="item-arrow" id="arr-hpjy">›</div>
+</div>
+<div class="fold-content" id="hpjy">
+<div class="price-row"><div class="price-name">王牌</div><div class="price-tag">咨询客服</div></div>
+<div class="price-row"><div class="price-name">战神</div><div class="price-tag">咨询客服</div></div>
+<div class="price-row"><div class="price-name">陪陪</div><div class="price-tag">咨询客服</div></div>
+<div class="price-row"><div class="price-name">指定段位包段</div><div class="price-tag">咨询客服</div></div>
+</div>
+<!-- 王者荣耀 -->
+<div class="item" onclick="toggleFold('wzry')">
+<div class="item-icon">⭐</div>
+<div class="item-info">
+<div class="item-name">王者荣耀·king honourable</div>
+<div class="item-desc">排位 / 巅峰赛 / 英雄战力</div>
+</div>
+<div class="item-arrow" id="arr-wzry">›</div>
+</div>
+<div class="fold-content" id="wzry">
+<div class="price-row"><div class="price-name">排位段位</div><div class="price-tag">咨询客服</div></div>
+<div class="price-row"><div class="price-name">巅峰赛分数</div><div class="price-tag">咨询客服</div></div>
+<div class="price-row"><div class="price-name">英雄战力</div><div class="price-tag">咨询客服</div></div>
+</div>
+<!-- 三角洲行动 -->
+<div class="item" onclick="toggleFold('sjz')">
+<div class="item-icon">🔫</div>
+<div class="item-info">
+<div class="item-name">三角洲行动·Delta operation</div>
+<div class="item-desc">体验单 / 机绝密 / 跑刀</div>
+</div>
+<div class="item-arrow" id="arr-sjz">›</div>
+</div>
+<div class="fold-content" id="sjz">
+<div class="price-row"><div class="price-name">机密体验单保底200万送50万</div><div class="price-tag">¥9.9</div></div>
+<div class="price-row"><div class="price-name">机绝密双护保400万送吞天包</div><div class="price-tag">¥25.9</div></div>
+<div class="price-row"><div class="price-name">只跑刀不碰仓库物资纯跑刀1000万</div><div class="price-tag">￥40</div></div>
+</div>
+<!-- 地铁逃生 -->
+<div class="item" onclick="toggleFold('dtts')">
+<div class="item-icon">🧱</div>
+<div class="item-info">
+<div class="item-name">地铁逃生·Subway escape</div>
+<div class="item-desc">摸金护航 / 玩法单 / 装备单 / 赛季任务</div>
+</div>
+<div class="item-arrow" id="arr-dtts">›</div>
+</div>
+<div class="fold-content" id="dtts">
+<div class="price-row"><div class="price-name">摸金校尉</div><div class="price-tag">咨询客服</div></div>
+<div class="price-row"><div class="price-name">玩法单</div><div class="price-tag">咨询客服</div></div>
+<div class="price-row"><div class="price-name">装备单</div><div class="price-tag">咨询客服</div></div>
+<div class="price-row"><div class="price-name">赛季任务代肝</div><div class="price-tag">咨询客服</div></div>
+</div>
+</div>
+<!-- 服务承诺（带自适应壁纸，可单独换图） -->
+<!-- 这里也可以单独换壁纸，和上面分开设置 -->
+<div class="card" style="background-image: url('https://img.netbian.com/file/2025/0117/165728kNeL2.jpg');">
+<div class="card-header">服务承诺</div>
+<div class="item" style="cursor:default">
+<div class="item-icon">✅</div>
+<div class="item-info">
+<div class="item-name">纯手工操作</div>
+<div class="item-desc">无外挂无脚本，安全不封号</div>
+</div>
+</div>
+<div class="item" style="cursor:default">
+<div class="item-icon">⏱️</div>
+<div class="item-info">
+<div class="item-name">极速上号</div>
+<div class="item-desc">下单后5-10分钟内安排</div>
+</div>
+</div>
+<div class="item" style="cursor:default">
+<div class="item-icon">🛡️</div>
+<div class="item-info">
+<div class="item-name">全程售后</div>
+<div class="item-desc">不满意可检查，问题秒处理</div>
+</div>
+</div>
+</div>
+<!-- 防骗须知 - 与其他板块样式完全统一，壁纸必显 -->
+<div class="card" style="background-image: url('https://img.netbian.com/file/2025/1215/000159CcAzN.jpg'); aspect-ratio: 16/9;">
+  <div class="card-header">防骗须知</div>
+  <!-- 用和其他板块一致的item外层包裹，消除样式冲突 -->
+  <div class="item" style="cursor:default; border-bottom: none; padding: 16px 20px;">
+    <div style="font-size:14px;line-height:1.7;color:#475569; width: 100%;">
+      1. 只通过主页联系方式下单<br>
+      2. 无任何先打后付，谨防诈骗<br>
+      3. 不相信非官方客服的任何链接
     </div>
-
-    <!-- 价目表弹窗 -->
-    <div class="jmb-modal-mask" id="jmbModalMask">
-        <div class="jmb-modal-box">
-            <div class="jmb-header">
-                <div class="jmb-back-btn" id="closeJmbModal">←</div>
-                <div class="jmb-title">游戏服务价目表</div>
-            </div>
-            <div class="notice-bar">
-                <div class="notice-bell">🔔</div>
-                <div class="notice-scroll-wrap">
-                    <div class="notice-text">公告：正式营业 赛季低价 最性价比！</div>
-                </div>
-            </div>
-            <div class="jmb-card">
-                <div class="card-title">和平精英 · Game For Peace</div>
-                <div class="item"><span class="label">6.6r保底250W上不封顶</span><span class="price">免费</span></div>
-                <div class="item"><span class="label">9.9r保底520W上不封顶</span><span class="price">免费</span></div>
-                <div class="item"><span class="label">12.5r保底888W上不封顶</span><span class="price">免费</span></div>
-                <div class="item"><span class="label">25r保底1000W当局收获</span><span class="price">免费</span></div>
-            </div>
-            <div class="jmb-card">
-                <div class="card-title">三角洲行动 · Delta operation</div>
-                <div class="item"><span class="label">全段位代肝</span><span class="price">免费</span></div>
-                <div class="item"><span class="label">赛季通行证速刷</span><span class="price">免费</span></div>
-                <div class="item"><span class="label">物资/等级提升</span><span class="price">免费</span></div>
-                <div class="item"><span class="label">专业护航稳赢</span><span class="price">免费</span></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 弹窗控制脚本（DOM加载后绑定，避免浏览器找不到元素） -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const openJmbModal = document.getElementById('openJmbModal');
-            const jmbModalMask = document.getElementById('jmbModalMask');
-            const closeJmbModal = document.getElementById('closeJmbModal');
-
-            // 打开弹窗
-            openJmbModal.addEventListener('click', () => {
-                jmbModalMask.style.display = 'flex';
-                document.body.style.overflow = 'hidden';
-            });
-
-            // 关闭弹窗
-            function closeModal() {
-                jmbModalMask.style.display = 'none';
-                document.body.style.overflow = 'auto';
-            }
-            closeJmbModal.addEventListener('click', closeModal);
-            jmbModalMask.addEventListener('click', (e) => e.target === jmbModalMask && closeModal());
-            document.addEventListener('keydown', (e) => e.key === 'Escape' && closeModal());
-        });
-    </script>
+  </div>
+</div>
+<div class="footer">© 2026 安昱</div>
+<script>
+// 在这里改成你的微信号即可
+const contactText = "t10u14q02";
+function copyContact() {
+  navigator.clipboard.writeText(contactText).then(() => {
+    alert("复制成功！请打开微信添加客服");
+  }).catch(() => {
+    alert("复制失败，请手动添加：" + contactText);
+  });
+}
+function toggleFold(id){
+  let c = document.getElementById(id)
+  let arr = document.getElementById('arr-'+id)
+  c.classList.toggle('show')
+  arr.innerHTML = c.classList.contains('show') ? '⌃' : '›'
+}
+</script>
 </body>
 </html>
